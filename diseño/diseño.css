@@ -209,3 +209,11 @@ footer a {
 footer a:hover {
   color: var(--color-accent);
 }
+
+.pantalla {
+  display: none;
+}
+
+#pantallaInicio {
+  display: block;
+}
