@@ -69,4 +69,14 @@ class Sistema {
     }
     return null;
   }
+
+  existeUsuarioPostulante(usuario) {
+    let existe = false;
+    for (let i = 0; i < this.postulantes.length; i++) {
+      if (this.postulantes[i].usuario.toLowerCase() === usuario.toLowerCase()) {
+        existe = true;
+      }
+    }
+    return existe;
+  }
 }
