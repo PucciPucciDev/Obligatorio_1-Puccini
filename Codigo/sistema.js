@@ -13,4 +13,37 @@ class Sistema {
         this.proximoIdOferta = 1;
         this.proximoIdPostulacion = 1;
     }
+
+    // Métodos utilizados para agregar y gestionar los datos dentro del sistema.
+
+    agregarPostulante(postulante) {
+        this.postulantes.push(postulante);
+    }
+
+    agregarAdmin(admin) {
+        this.admins.push(admin);
+    }
+
+    agregarOferta(oferta) {
+        this.ofertas.push(oferta);
+    }
+
+    agregarPostulacion(postulacion) {
+        this.postulaciones.push(postulacion);
+    }
+
+    // Funciones utilizadas para generar IDs automáticos, como indica la letra.
+
+    generarIdOferta() {
+        let id = "JOB_OFFER_" + this.proximoIdOferta;
+        this.proximoIdOferta++;
+        return id;
+    }
+
+    generarIdPostulacion() {
+        let id = "JOB_" + this.proximoIdPostulacion;
+        this.proximoIdPostulacion++;
+        return id;
+    }
 }
+
