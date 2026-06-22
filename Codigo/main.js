@@ -19,6 +19,9 @@ function cargarEventos() {
   document.querySelector("#btnIrLogin").addEventListener("click", mostrarLogin);
   document.querySelector("#btnCerrarSesionPostulante").addEventListener("click", cerrarSesion);
   document.querySelector("#btnCerrarSesionAdmin").addEventListener("click", cerrarSesion);
+  document.querySelector("#btnVerOfertas").addEventListener("click", mostrarSeccionOfertas);
+ document.querySelector("#btnVerPostulaciones").addEventListener("click", mostrarSeccionPostulaciones);
+ document.querySelector("#btnVerDestacadas").addEventListener("click", mostrarDestacadas);
 }
 
 // Funcion para el login de usuarios
@@ -43,6 +46,7 @@ function Login() {
     usuarioLogueado = postulanteEncontrado;
     tipoUsuarioLogueado = "postulante";
     mostrarPostulante();
+    mostrarSeccionOfertas();
     return;
   }
 
@@ -108,4 +112,24 @@ function registrarPostulante() {
   document.querySelector("#txtRegistroNombre").value = "";
   document.querySelector("#slcRegistroExperiencia").value = "";
   document.querySelector("#slcRegistroArea").value = "";
+
+  // Redirige nuevamente al login.
+  mostrarLogin();
+}
+
+function postularme(idOferta) {
+  if (sistema.postulanteYaPostulado(usuarioLogueado.id, idOferta)) {
+    alert("Ya te postulaste a esta oferta.");
+    return;
+  }
+  let nuevaPostulacion = new Postulacion(
+      sistema.generarIdPostulacion(),
+      usuarioLogueado.id,
+      idOferta,
+      "Pendiente"
+  );
+  sistema.agregarPostulacion(nuevaPostulacion);
+
+  alert("Postulación realizada correctamente.");
+  mostrarSeccionOfertas();
 }

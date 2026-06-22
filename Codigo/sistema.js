@@ -79,4 +79,42 @@ class Sistema {
     }
     return existe;
   }
+
+  // Obtiene las ofertas disponibles para un postulante.
+  obtenerOfertasParaPostulante(postulante) {
+    let ofertasDisponibles = [];
+    for (let i = 0; i < this.ofertas.length; i++) {
+      let ofertaActual = this.ofertas[i];
+      // Verifica que la oferta esté activa.
+      if (ofertaActual.estado === "Activa") {
+        // Verifica que el nivel coincida con el postulante.
+        if (ofertaActual.nivel === postulante.experiencia) {
+          ofertasDisponibles.push(ofertaActual);
+        }
+      }
+    }
+    return ofertasDisponibles;
+  }
+
+  postulanteYaPostulado(idPostulante, idOferta) {
+    for (let i = 0; i < this.postulaciones.length; i++) {
+      let postulacion = this.postulaciones[i];
+      if (
+        postulacion.idPostulante === idPostulante &&
+        postulacion.idOferta === idOferta
+      ) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  buscarOfertaPorId(idOferta) {
+    for (let i = 0; i < this.ofertas.length; i++) {
+      if (this.ofertas[i].id === idOferta) {
+        return this.ofertas[i];
+      }
+    }
+    return null;
+  }
 }

@@ -28,7 +28,110 @@ function mostrarAdmin() {
 }
 
 function cerrarSesion() {
-    mostrarLogin();
-    document.querySelector("#txtLoginUsuario").value = "";
-    document.querySelector("#txtLoginContrasena").value = "";
+  mostrarLogin();
+  document.querySelector("#txtLoginUsuario").value = "";
+  document.querySelector("#txtLoginContrasena").value = "";
 }
+
+// Aca se mostraran las ofertas en la pantalla usuario dentro del main.
+function mostrarSeccionOfertas() {
+  let contenido = document.querySelector("#contenidoPostulante");
+  contenido.innerHTML = `
+      <h2>Ofertas laborales disponibles</h2>
+
+      <table border="1">
+          <thead>
+              <tr>
+                  <th>Título</th>
+                  <th>Empresa</th>
+                  <th>Nivel</th>
+                  <th>Área</th>
+                  <th>Vacantes</th>
+                  <th>Postularse</th>
+              </tr>
+          </thead>
+
+          <tbody id="tblOfertasLaborales">
+          </tbody>
+      </table>
+  `;
+  cargarTablaOfertasPostulante();
+}
+
+// Con esta funcion cargaremos la tabla con Ofertas ya precargadas.
+function cargarTablaOfertasPostulante() {
+  let tabla = document.querySelector("#tblOfertasLaborales");
+  tabla.innerHTML = "";
+
+  let ofertas = sistema.obtenerOfertasParaPostulante(usuarioLogueado);
+  for (let i = 0; i < ofertas.length; i++) {
+    let oferta = ofertas[i];
+    tabla.innerHTML += `
+          <tr>
+              <td>${oferta.titulo}</td>
+              <td>${oferta.empresa}</td>
+              <td>${oferta.nivel}</td>
+              <td>${oferta.area}</td>
+              <td>${oferta.vacantes}</td>
+              <td>
+                  <button onclick="postularme('${oferta.id}')">
+                  Postularme
+                  </button>
+              </td>
+          </tr>
+      `;
+  }
+}
+
+//-------------------------------------------------------------------------//
+
+// Aca se mostraran las postulaciones del usuario Postulante.
+function mostrarSeccionPostulaciones() {
+  let contenido = document.querySelector("#contenidoPostulante");
+  contenido.innerHTML = 
+  `
+      <h2>Mis postulaciones</h2>
+
+      <table border="1">
+          <thead>
+              <tr>
+                  <th>Oferta</th>
+                  <th>Empresa</th>
+                  <th>Estado</th>
+              </tr>
+          </thead>
+
+          <tbody id="tblMisPostulaciones">
+          </tbody>
+      </table>
+  `;
+
+  cargarTablaMisPostulaciones();
+}
+
+// Con esta funcion cargaremos la tabla de postulaciones del usuario Postulante.
+// Podra ver todas con estado pendiente, aceptada o rechazada.
+function cargarTablaMisPostulaciones() {
+  let tabla = document.querySelector("#tblMisPostulaciones");
+  tabla.innerHTML = "";
+
+  for (let i = 0; i < sistema.postulaciones.length; i++) {
+      let postulacion = sistema.postulaciones[i];
+      if (postulacion.idPostulante === usuarioLogueado.id) {
+          let oferta = sistema.buscarOfertaPorId(postulacion.idOferta);
+          tabla.innerHTML += `
+              <tr>
+                  <td>${oferta.titulo}</td>
+                  <td>${oferta.empresa}</td>
+                  <td>${postulacion.estado}</td>
+              </tr>
+          `;
+      }
+  }
+}
+
+// 
+function mostrarDestacadas() {
+  // codigo para mostrar ofertas destacadas
+}
+
