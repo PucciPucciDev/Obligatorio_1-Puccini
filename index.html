@@ -3,235 +3,109 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Obligatorio</title>
-    <script src="Codigo/codigo.js"></script>
+    <title>Cartelera de Postulaciones</title>
     <link rel="stylesheet" href="diseño/diseño.css" />
+    <script src="Codigo/clases.js"></script>
+    <script src="Codigo/sistema.js"></script>
+    <script src="Codigo/datosPrecargados.js"></script>
+    <script src="Codigo/validaciones.js"></script>
+    <script src="Codigo/visual.js"></script>
+    <script src="Codigo/main.js"></script>
   </head>
   <body>
-    <!-- Visualizacion de Usuario y Administrador -->
-
-    <!-- PANTALLA DE INICIO / LOGIN -->
-<div id="pantallaInicio" class="pantalla">
-  <h1>Cartelera de Postulaciones</h1>
-
-  <label for="txtUsuarioLogin">Usuario</label>
-  <input type="text" id="txtUsuarioLogin">
-
-  <label for="txtPasswordLogin">Contraseña</label>
-  <input type="password" id="txtPasswordLogin">
-
-  <input type="button" id="btnIngresar" value="Ingresar">
-  <input type="button" id="btnIrRegistro" value="Registrarse">
-</div>
-
-
-<!-- PANTALLA DE REGISTRO -->
-<div id="pantallaRegistro" class="pantalla">
-  <h1>Registro de Postulante</h1>
-
-  <label for="txtUsuarioRegistro">Nombre de usuario</label>
-  <input type="text" id="txtUsuarioRegistro">
-
-  <label for="txtPasswordRegistro">Contraseña</label>
-  <input type="password" id="txtPasswordRegistro">
-
-  <label for="txtNombreCompletoRegistro">Nombre completo</label>
-  <input type="text" id="txtNombreCompletoRegistro">
-
-  <label for="slcExperienciaRegistro">Nivel de experiencia</label>
-  <select id="slcExperienciaRegistro">
-    <option value="">Seleccione...</option>
-    <option value="Junior">Junior</option>
-    <option value="Semi-Senior">Semi-Senior</option>
-    <option value="Senior">Senior</option>
-  </select>
-
-  <label for="slcAreaRegistro">Área de interés</label>
-  <select id="slcAreaRegistro">
-    <option value="">Seleccione...</option>
-    <option value="Tecnología">Tecnología</option>
-    <option value="Diseño">Diseño</option>
-    <option value="Marketing">Marketing</option>
-    <option value="Administración">Administración</option>
-    <option value="Otros">Otros</option>
-  </select>
-
-  <input type="button" id="btnRegistrar" value="Registrar">
-  <input type="button" id="btnVolverLogin" value="Volver">
-</div>
-
-
-<!-- PANTALLA PRINCIPAL USUARIO -->
-<div id="pantallaPrincipal" class="pantalla">
-
-  <!-- CABEZAL -->
-  <div id="cabezal">
-    <div id="logo">
-      <h1>JobBoard ORT</h1>
+    <!-- PANTALLA DE LOGIN -->
+    <div id="pantallaLogin" class="pantalla">
+      <h1>Iniciar Sesión</h1>
+      <label for="txtLoginUsuario">Usuario</label>
+      <input type="text" id="txtLoginUsuario" />
+      <label for="txtLoginContrasena">Contraseña</label>
+      <input type="password" id="txtLoginContrasena" />
+      <button id="btnLogin">Ingresar</button>
+      <button id="btnIrRegistro">Registrarse</button>
     </div>
 
-    <div id="menuUsuario">
-      <input type="button" id="btnVerOfertasDestacadas" value="Ofertas Destacadas">
-      <input type="button" id="btnVerPerfil" value="Perfil">
-      <input type="button" id="btnCerrarSesionUsuario" value="Cerrar sesión">
+    <!-- PANTALLA DE REGISTRO -->
+    <div id="pantallaRegistro" class="pantalla" style="display: none">
+      <h1>Registro de Postulante</h1>
+      <label for="txtRegistroUsuario">Usuario</label>
+      <input type="text" id="txtRegistroUsuario" />
+      <label for="txtRegistroContrasena">Contraseña</label>
+      <input type="password" id="txtRegistroContrasena" />
+      <label for="txtRegistroNombre">Nombre Completo</label>
+      <input type="text" id="txtRegistroNombre" />
+      <label for="slcRegistroExperiencia">Nivel de Experiencia</label>
+      <select id="slcRegistroExperiencia">
+        <option value="">Seleccione...</option>
+        <option value="Junior">Junior</option>
+        <option value="Semi-Senior">Semi-Senior</option>
+        <option value="Senior">Senior</option>
+      </select>
+      <label for="slcRegistroArea">Área de Interés</label>
+      <select id="slcRegistroArea">
+        <option value="">Seleccione...</option>
+        <option value="Tecnología">Tecnología</option>
+        <option value="Diseño">Diseño</option>
+        <option value="Marketing">Marketing</option>
+        <option value="Administración">Administración</option>
+        <option value="Otros">Otros</option>
+      </select>
+      <button id="btnRegistro">Registrar</button>
+      <button id="btnIrLogin">Volver al Login</button>
     </div>
-  </div>
 
-
-  <!-- CONTENIDO PRINCIPAL -->
-  <div id="contenidoPrincipal">
-    <h2>Ofertas Laborales Disponibles</h2>
-
-    <table border="1">
-      <thead>
-        <tr>
-          <th>Título</th>
-          <th>Empresa</th>
-          <th>Descripción</th>
-          <th>Nivel requerido</th>
-          <th>Área</th>
-          <th>Vacantes</th>
-          <th>Postularse</th>
-        </tr>
-      </thead>
-
-      <tbody id="tblOfertasLaborales">
-        <!-- Las ofertas se cargan por JavaScript -->
-      </tbody>
-    </table>
-  </div>
-
-
-  <!-- FOOTER -->
-  <div id="footer">
-    <h3>Cartelera de Postulaciones</h3>
-    <p>Conectamos postulantes con empresas de todo el país.</p>
-    <p><strong>Contacto:</strong> Atención al postulante</p>
-    <p><strong>Email:</strong> contacto@jobboardort.com</p>
-    <p><strong>Ubicación:</strong> Montevideo, Uruguay</p>
-    <p><strong>Derechos de autor:</strong> © 2026 JobBoard ORT. Todos los derechos reservados.</p>
-  </div>
-
-    <!-- Visualizacion de Administrador solo -->
-   
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    <!-- Boceto brindado por ORT, servira para colocar dentro de los Divs -->
-    <!-- CABEZAL -->
-    <div id="contenedor">
-      <header>
-        <img
-          id="logo"
-          src="https://t3.ftcdn.net/jpg/05/61/04/54/360_F_561045496_xfpWwmTnI1xuTA8BPC8QJS867mgXo4RR.jpg"
-          alt="logo"
-        />
-        <nav>
-          <ul id="navPrincipal">
-            <li>
-              <a>Sección 1</a>
-            </li>
-            <li>
-              <a>Sección 2</a>
-            </li>
-            <li>
-              <a>Sección 3</a>
-            </li>
-            <li>
-              <a>Sección 4</a>
-            </li>
-          </ul>
+    <!--------- PANTALLA POSTULANTE --------->
+    <div id="pantallaPostulante" class="pantalla">
+      <!-- HEADER -->
+      <header id="headerPostulante">
+        <div id="logoPostulante">
+          <h1>JobBoard ORT</h1>
+        </div>
+        <nav id="menuPostulante">
+          <button id="btnVerOfertas">Ofertas laborales</button>
+          <button id="btnVerPostulaciones">Mis postulaciones</button>
+          <button id="btnVerDestacadas">Ofertas destacadas</button>
+          <button id="btnCerrarSesionPostulante">Cerrar sesión</button>
         </nav>
       </header>
-      <!-- FIN CABEZAL -->
-      <main>
-        <section>
-          <!-- TITULOS -->
-          <h1>Titulo 1</h1>
-          <h2>Titulo 2</h2>
-          <h3>Titulo 3</h3>
-          <h4>Titulo 4</h4>
-          <hr />
-          <!-- INPUTS -->
-          <h3>Inputs</h3>
-          <label for="txtTexto">txtTexto</label>
-          <input type="text" id="txtTexto" />
-          <label for="nbrNumero">nbrNumero</label>
-          <input type="number" id="nbrNumero" />
-          <label for="txtPass">txtPass</label>
-          <input type="password" id="txtPass" />
-          <label for="txtComentarios">Text Area</label>
-          <textarea id="txtComentarios"></textarea>
-          <label for="slcOpciones">Select</label>
-          <select id="slcOpciones">
-            <option value="1">opcion 1</option>
-            <option value="2">opcion 2</option>
-            <option value="3">opcion 3</option>
-          </select>
-          <input type="button" value="Enviar" /><br />
-          <hr />
-        </section>
 
-        <!-- TABLA -->
-        <h3>Resumen</h3>
-        <table>
+      <!-- CONTENIDO PRINCIPAL -->
+      <main id="contenidoPostulante">
+        <h2>Ofertas laborales disponibles</h2>
+        <table border="1">
           <thead>
             <tr>
-              <th>Nombre</th>
-              <th>Precio</th>
-              <th>Imagen</th>
-              <th></th>
+              <th>Título</th>
+              <th>Empresa</th>
+              <th>Nivel</th>
+              <th>Área</th>
+              <th>Vacantes</th>
+              <th>Acción</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>Nombre 1</td>
-              <td>30</td>
-              <td>
-                <img src="https://picsum.photos/id/56/100/100" alt="prueba" />
-              </td>
-              <td>
-                <input type="button" value="Acción" />
-              </td>
-            </tr>
-            <tr>
-              <td>Nombre 2</td>
-              <td>30</td>
-              <td>
-                <img src="https://picsum.photos/id/56/100/100" alt="prueba" />
-              </td>
-              <td>
-                <input type="button" value="Accion" />
-              </td>
-            </tr>
-          </tbody>
+          <tbody id="tblOfertasLaborales"></tbody>
         </table>
-
-        <p>
-          Donec dapibus arcu a diam commodo, vel vehicula orci volutpat.
-          Vestibulum convallis tempor mattis. Donec molestie semper leo vel
-          luctus. Curabitur quis nisi maximus, luctus lorem quis, dignissim
-          augue.
-        </p>
-        <hr />
       </main>
-      <!-- FIN CONTENIDO -->
-      <footer>
-        <a href="https://www.ort.edu.uy">Footer</a>
+
+      <!-- FOOTER -->
+      <footer id="footerPostulante">
+        <h3>Cartelera de Postulaciones</h3>
+        <p>
+          Plataforma dedicada a conectar postulantes con empresas de distintos
+          rubros.
+        </p>
+        <p>Contacto: soporte@jobboardort.com</p>
+        <p>Montevideo, Uruguay</p>
+        <p>© 2026 JobBoard ORT - Todos los derechos reservados.</p>
       </footer>
-      <!-- FIN PIE -->
     </div>
-    <!-- FIN CONTENEDOR -->
+
+    <!--------- PANTALLA ADMINISTRADOR --------->
+    <div id="pantallaAdmin" class="pantalla" style="display: none">
+      <h1>Panel Administrador</h1>
+      <div id="contenedorAdmin">
+        <!--contenido -->
+      </div>
+      <button id="btnCerrarSesionAdmin">Cerrar Sesión</button>
+    </div>
   </body>
 </html>

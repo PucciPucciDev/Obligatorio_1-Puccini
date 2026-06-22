@@ -26,3 +26,9 @@ function mostrarAdmin() {
   ocultarPantallas();
   document.querySelector("#pantallaAdmin").style.display = "block";
 }
+
+function cerrarSesion() {
+    mostrarLogin();
+    document.querySelector("#txtLoginUsuario").value = "";
+    document.querySelector("#txtLoginContrasena").value = "";
+}
