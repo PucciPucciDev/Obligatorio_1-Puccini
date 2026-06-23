@@ -171,3 +171,55 @@ function cargarTablaDestacadas() {
     }
   }
 }
+
+function mostrarFormularioCrearOferta() {
+  let contenido = document.querySelector("#contenidoAdmin");
+
+    contenido.innerHTML = 
+    `
+        <h2>Crear nueva oferta laboral</h2>
+
+        <label>Título</label>
+        <input type="text" id="txtTituloOferta">
+        <label>Empresa</label>
+        <input type="text" id="txtEmpresaOferta">
+        <label>Descripción</label>
+        <textarea id="txtDescripcionOferta"></textarea>
+        <label>Nivel requerido</label>
+        <select id="slcNivelOferta">
+            <option value="">Seleccione...</option>
+            <option value="Junior">Junior</option>
+            <option value="Semi-Senior">Semi-Senior</option>
+            <option value="Senior">Senior</option>
+        </select>
+        <label>Área</label>
+        <select id="slcAreaOferta">
+            <option value="">Seleccione...</option>
+            <option value="Tecnología">Tecnología</option>
+            <option value="Diseño">Diseño</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Administración">Administración</option>
+            <option value="Otros">Otros</option>
+        </select>
+        <label>Vacantes</label>
+        <input type="number" id="txtVacantesOferta">
+        <label>
+            <input type="checkbox" id="chkDestacada">
+            Oferta destacada
+        </label>
+        <br><br>
+        <button id="btnCrearOferta">
+            Crear oferta
+        </button>
+    `;
+
+    document.querySelector("#btnCrearOferta").addEventListener("click", crearOferta);
+}
+
+function mostrarPostulacionesPendientesAdmin() {
+  // Código para mostrar postulaciones pendientes.
+}
+
+function mostrarEstadisticasAdmin() {
+  // Código para mostrar estadísticas.
+}

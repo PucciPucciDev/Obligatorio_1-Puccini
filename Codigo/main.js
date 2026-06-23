@@ -12,6 +12,7 @@ function inicio() {
   mostrarLogin();
 }
 
+// Aca se depositan los botones del sistema
 function cargarEventos() {
   document.querySelector("#btnLogin").addEventListener("click", Login);
   document.querySelector("#btnRegistro").addEventListener("click", registrarPostulante);
@@ -22,6 +23,9 @@ function cargarEventos() {
   document.querySelector("#btnVerOfertas").addEventListener("click", mostrarSeccionOfertas);
  document.querySelector("#btnVerPostulaciones").addEventListener("click", mostrarSeccionPostulaciones);
  document.querySelector("#btnVerDestacadas").addEventListener("click", mostrarDestacadas);
+ document.querySelector("#btnAdminCrearOferta").addEventListener("click", mostrarFormularioCrearOferta);
+ document.querySelector("#btnAdminVerPostulaciones").addEventListener("click", mostrarPostulacionesPendientesAdmin);
+ document.querySelector("#btnAdminEstadisticas").addEventListener("click", mostrarEstadisticasAdmin);
 }
 
 // Funcion para el login de usuarios
@@ -132,4 +136,45 @@ function postularme(idOferta) {
 
   alert("Postulación realizada correctamente.");
   mostrarSeccionOfertas();
+}
+
+function crearOferta() {
+  let titulo = document.querySelector("#txtTituloOferta").value;
+  let empresa = document.querySelector("#txtEmpresaOferta").value;
+  let descripcion = document.querySelector("#txtDescripcionOferta").value;
+  let nivel = document.querySelector("#slcNivelOferta").value;
+  let area = document.querySelector("#slcAreaOferta").value;
+  let vacantes = Number(document.querySelector("#txtVacantesOferta").value);
+  let destacada = document.querySelector("#chkDestacada").checked;
+
+  // Validaciones básicas.
+  if (
+      titulo === "" ||
+      empresa === "" ||
+      descripcion === "" ||
+      nivel === "" ||
+      area === "" ||
+      vacantes <= 0
+  ) {
+      alert("Complete todos los datos.");
+      return;
+  }
+
+  // Crea la nueva oferta.
+  let nuevaOferta = new OfertaLaboral(
+      sistema.proximoIdOferta++,
+      titulo,
+      empresa,
+      descripcion,
+      nivel,
+      area,
+      vacantes,
+      destacada,
+      "Activa"
+  );
+
+  // Agrega la oferta al sistema.
+  sistema.agregarOferta(nuevaOferta);
+  alert("Oferta creada exitosamente.");
+  mostrarFormularioCrearOferta();
 }
