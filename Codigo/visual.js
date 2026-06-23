@@ -1,5 +1,6 @@
 // Archivo encargado del manejo visual de la aplicación.
 
+// Oculta todas las pantallas para luego mostrar solamente la que corresponda.
 function ocultarPantallas() {
   document.querySelector("#pantallaLogin").style.display = "none";
   document.querySelector("#pantallaRegistro").style.display = "none";
@@ -7,33 +8,38 @@ function ocultarPantallas() {
   document.querySelector("#pantallaAdmin").style.display = "none";
 }
 
+// Muestra la pantalla de inicio de sesión.
 function mostrarLogin() {
   ocultarPantallas();
   document.querySelector("#pantallaLogin").style.display = "flex";
 }
 
+// Muestra la pantalla de registro de postulantes.
 function mostrarRegistro() {
   ocultarPantallas();
   document.querySelector("#pantallaRegistro").style.display = "flex";
 }
 
+// Muestra el panel principal del postulante.
 function mostrarPostulante() {
   ocultarPantallas();
   document.querySelector("#pantallaPostulante").style.display = "block";
 }
 
+// Muestra el panel principal del administrador.
 function mostrarAdmin() {
   ocultarPantallas();
   document.querySelector("#pantallaAdmin").style.display = "block";
 }
 
+// Cierra la sesión actual y limpia los campos del login.
 function cerrarSesion() {
   mostrarLogin();
   document.querySelector("#txtLoginUsuario").value = "";
   document.querySelector("#txtLoginContrasena").value = "";
 }
 
-// Aca se mostraran las ofertas en la pantalla usuario dentro del main.
+// Muestra la tabla de ofertas laborales disponibles para el postulante logueado.
 function mostrarSeccionOfertas() {
   let contenido = document.querySelector("#contenidoPostulante");
   contenido.innerHTML = `
@@ -58,7 +64,7 @@ function mostrarSeccionOfertas() {
   cargarTablaOfertasPostulante();
 }
 
-// Con esta funcion cargaremos la tabla con Ofertas ya precargadas.
+// Carga en la tabla las ofertas compatibles con el postulante logueado.
 function cargarTablaOfertasPostulante() {
   let tabla = document.querySelector("#tblOfertasLaborales");
   tabla.innerHTML = "";
@@ -106,8 +112,7 @@ function mostrarSeccionPostulaciones() {
   cargarTablaMisPostulaciones();
 }
 
-// Con esta funcion cargaremos la tabla de postulaciones del usuario Postulante.
-// Podra ver todas con estado pendiente, aceptada o rechazada.
+// Carga las postulaciones del usuario logueado junto con su estado actual.
 function cargarTablaMisPostulaciones() {
   let tabla = document.querySelector("#tblMisPostulaciones");
   tabla.innerHTML = "";
@@ -127,7 +132,7 @@ function cargarTablaMisPostulaciones() {
   }
 }
 
-// Aca se mostraran las publicaciones destacadas en base a los datos del usuario Postulante.
+// Muestra las ofertas destacadas compatibles con el perfil del postulante.
 function mostrarDestacadas() {
   let contenido = document.querySelector("#contenidoPostulante");
   contenido.innerHTML = `
@@ -149,13 +154,14 @@ function mostrarDestacadas() {
   cargarTablaDestacadas();
 }
 
+// Carga únicamente las ofertas destacadas, activas y compatibles con el postulante.
 function cargarTablaDestacadas() {
   let tabla = document.querySelector("#tblDestacadas");
   tabla.innerHTML = "";
 
   for(let i = 0; i < sistema.ofertas.length; i++){
     let oferta = sistema.ofertas[i];
-    // Que sea compatible con el usuario la propuesta destacada.
+    // Verifica que la oferta destacada esté activa y sea compatible con la experiencia del postulante.
     if(
       oferta.destacada === true &&
       oferta.estado === "Activa" &&
@@ -172,6 +178,7 @@ function cargarTablaDestacadas() {
   }
 }
 
+// Muestra el formulario que utiliza el administrador para crear ofertas laborales.
 function mostrarFormularioCrearOferta() {
   let contenido = document.querySelector("#contenidoAdmin");
 
@@ -216,10 +223,136 @@ function mostrarFormularioCrearOferta() {
     document.querySelector("#btnCrearOferta").addEventListener("click", crearOferta);
 }
 
+//-------------------------------------------------------------------------//
+
+// Muestra al administrador todas las postulaciones que todavía están pendientes.
 function mostrarPostulacionesPendientesAdmin() {
-  // Código para mostrar postulaciones pendientes.
+  let contenido = document.querySelector("#contenidoAdmin");
+  contenido.innerHTML = 
+  `
+      <h2>Postulaciones pendientes</h2>
+      <table border="1">
+          <thead>
+              <tr>
+                  <th>ID Postulación</th>
+                  <th>Postulante</th>
+                  <th>Oferta</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+              </tr>
+          </thead>
+          <tbody id="tblPostulacionesPendientes">
+          </tbody>
+      </table>
+  `;
+
+  cargarTablaPostulacionesPendientes();
 }
 
+// Carga la tabla de postulaciones pendientes con botones para aceptar o rechazar.
+function cargarTablaPostulacionesPendientes() {
+  let tabla = document.querySelector("#tblPostulacionesPendientes");
+  tabla.innerHTML = "";
+
+  for (let i = 0; i < sistema.postulaciones.length; i++) {
+      let postulacion = sistema.postulaciones[i];
+      if (postulacion.estado === "Pendiente") {
+          let postulante = sistema.buscarPostulantePorId(postulacion.idPostulante);
+          let oferta = sistema.buscarOfertaPorId(postulacion.idOferta);
+          tabla.innerHTML += 
+          `
+              <tr>
+                  <td>${postulacion.id}</td>
+                  <td>${postulante.nombreCompleto}</td>
+                  <td>${oferta.titulo}</td>
+                  <td>${postulacion.estado}</td>
+                  <td>
+                      <button onclick="aceptarPostulacion('${postulacion.id}')">
+                          Aceptar
+                      </button>
+
+                      <button onclick="rechazarPostulacion('${postulacion.id}')">
+                          Rechazar
+                      </button>
+                  </td>
+              </tr>
+          `;
+      }
+  }
+}
+
+// Muestra las estadísticas generales del sistema para el administrador.
 function mostrarEstadisticasAdmin() {
-  // Código para mostrar estadísticas.
+  let contenido = document.querySelector("#contenidoAdmin");
+  let totalActivas = sistema.contarOfertasPorEstado("Activa");
+  let totalInactivas = sistema.contarOfertasPorEstado("Inactiva");
+  let totalCerradas = sistema.contarOfertasPorEstado("Cerrada");
+  let totalPostulantes = sistema.postulantes.length;
+  let totalPostulaciones = sistema.postulaciones.length;
+  contenido.innerHTML = 
+  `
+      <h2>Estadísticas generales</h2>
+      <div class="tarjetasEstadisticas">
+          <div class="tarjeta">
+              <h3>Ofertas activas</h3>
+              <p>${totalActivas}</p>
+          </div>
+          <div class="tarjeta">
+              <h3>Ofertas inactivas</h3>
+              <p>${totalInactivas}</p>
+          </div>
+          <div class="tarjeta">
+              <h3>Ofertas cerradas</h3>
+              <p>${totalCerradas}</p>
+          </div>
+          <div class="tarjeta">
+              <h3>Postulantes</h3>
+              <p>${totalPostulantes}</p>
+          </div>
+          <div class="tarjeta">
+              <h3>Postulaciones</h3>
+              <p>${totalPostulaciones}</p>
+          </div>
+      </div>
+      <h2>Postulaciones por oferta</h2>
+      <table border="1">
+          <thead>
+              <tr>
+                  <th>Oferta</th>
+                  <th>Pendientes</th>
+                  <th>Aceptadas</th>
+                  <th>Rechazadas</th>
+                  <th>Total</th>
+              </tr>
+          </thead>
+          <tbody id="tblEstadisticasOfertas">
+          </tbody>
+      </table>
+  `;
+
+  cargarTablaEstadisticasOfertas();
+}
+
+// Carga la tabla con el resumen de postulaciones por cada oferta laboral.
+function cargarTablaEstadisticasOfertas() {
+  let tabla = document.querySelector("#tblEstadisticasOfertas");
+  tabla.innerHTML = "";
+
+  for (let i = 0; i < sistema.ofertas.length; i++) {
+      let oferta = sistema.ofertas[i];
+      let pendientes = sistema.contarPostulacionesOfertaEstado(oferta.id, "Pendiente");
+      let aceptadas = sistema.contarPostulacionesOfertaEstado(oferta.id, "Aceptada");
+      let rechazadas = sistema.contarPostulacionesOfertaEstado(oferta.id, "Rechazada");
+      let total = pendientes + aceptadas + rechazadas;
+      tabla.innerHTML += 
+      `
+          <tr>
+              <td>${oferta.titulo}</td>
+              <td>${pendientes}</td>
+              <td>${aceptadas}</td>
+              <td>${rechazadas}</td>
+              <td>${total}</td>
+          </tr>
+      `;
+  }
 }

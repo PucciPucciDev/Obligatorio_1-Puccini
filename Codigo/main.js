@@ -2,8 +2,12 @@
 // Se encarga de iniciar el sistema y conectar los botones con sus funciones.
 
 let sistema = new Sistema();
+
+// Guarda el usuario que inició sesión actualmente.
 let usuarioLogueado = null;
+// Guarda si el usuario logueado es postulante o administrador.
 let tipoUsuarioLogueado = "";
+
 window.addEventListener("load", inicio);
 
 function inicio() {
@@ -12,7 +16,7 @@ function inicio() {
   mostrarLogin();
 }
 
-// Aca se depositan los botones del sistema
+// Conecta los botones del HTML con las funciones principales del sistema.
 function cargarEventos() {
   document.querySelector("#btnLogin").addEventListener("click", Login);
   document.querySelector("#btnRegistro").addEventListener("click", registrarPostulante);
@@ -121,23 +125,30 @@ function registrarPostulante() {
   mostrarLogin();
 }
 
+// Función que permite al postulante logueado postularse a una oferta laboral.
 function postularme(idOferta) {
+  // Verifica que el postulante no se haya postulado antes a la misma oferta.
   if (sistema.postulanteYaPostulado(usuarioLogueado.id, idOferta)) {
     alert("Ya te postulaste a esta oferta.");
     return;
   }
+  // Crea una nueva postulación en estado pendiente.
   let nuevaPostulacion = new Postulacion(
       sistema.generarIdPostulacion(),
       usuarioLogueado.id,
       idOferta,
       "Pendiente"
   );
+  // Agrega la postulación al sistema.
   sistema.agregarPostulacion(nuevaPostulacion);
 
   alert("Postulación realizada correctamente.");
+
+   // Actualiza la sección de ofertas luego de postularse.
   mostrarSeccionOfertas();
 }
 
+// Función utilizada por el administrador para crear una nueva oferta laboral.
 function crearOferta() {
   let titulo = document.querySelector("#txtTituloOferta").value;
   let empresa = document.querySelector("#txtEmpresaOferta").value;
@@ -177,4 +188,26 @@ function crearOferta() {
   sistema.agregarOferta(nuevaOferta);
   alert("Oferta creada exitosamente.");
   mostrarFormularioCrearOferta();
+}
+
+// Función que permite al administrador aceptar una postulación pendiente.
+function aceptarPostulacion(idPostulacion) {
+  let postulacion = sistema.buscarPostulacionPorId(idPostulacion);
+  if (postulacion !== null) {
+      postulacion.estado = "Aceptada";
+      let oferta = sistema.buscarOfertaPorId(postulacion.idOferta);
+      oferta.vacantes--;
+      alert("Postulación aceptada correctamente.");
+      mostrarPostulacionesPendientesAdmin();
+  }
+}
+
+// Función que permite al administrador rechazar una postulación pendiente.
+function rechazarPostulacion(idPostulacion) {
+  let postulacion = sistema.buscarPostulacionPorId(idPostulacion);
+  if (postulacion !== null) {
+      postulacion.estado = "Rechazada";
+      alert("Postulación rechazada correctamente.");
+      mostrarPostulacionesPendientesAdmin();
+  }
 }

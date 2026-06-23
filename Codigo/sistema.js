@@ -15,7 +15,6 @@ class Sistema {
   }
 
   // Métodos utilizados para agregar y gestionar los datos dentro del sistema.
-
   agregarPostulante(postulante) {
     this.postulantes.push(postulante);
   }
@@ -33,7 +32,6 @@ class Sistema {
   }
 
   // Funciones utilizadas para generar IDs automáticos, como indica la letra.
-
   generarIdOferta() {
     let id = "JOB_OFFER_" + this.proximoIdOferta;
     this.proximoIdOferta++;
@@ -47,7 +45,6 @@ class Sistema {
   }
 
   // Funciones de búsqueda de usuarios dentro del sistema.
-
   buscarPostulante(usuario) {
     let usuarioBuscado = usuario.toLowerCase();
     for (let i = 0; i < this.postulantes.length; i++) {
@@ -70,6 +67,7 @@ class Sistema {
     return null;
   }
 
+  // Verifica si ya existe un postulante con ese nombre de usuario.
   existeUsuarioPostulante(usuario) {
     let existe = false;
     for (let i = 0; i < this.postulantes.length; i++) {
@@ -87,7 +85,7 @@ class Sistema {
       let ofertaActual = this.ofertas[i];
       // Verifica que la oferta esté activa.
       if (ofertaActual.estado === "Activa") {
-        // Verifica que el nivel coincida con el postulante.
+        // Verifica que la oferta sea compatible con la experiencia del postulante.
         if (ofertaActual.nivel === postulante.experiencia) {
           ofertasDisponibles.push(ofertaActual);
         }
@@ -96,6 +94,7 @@ class Sistema {
     return ofertasDisponibles;
   }
 
+  // Verifica si el postulante ya se postuló anteriormente a esa oferta.
   postulanteYaPostulado(idPostulante, idOferta) {
     for (let i = 0; i < this.postulaciones.length; i++) {
       let postulacion = this.postulaciones[i];
@@ -109,6 +108,7 @@ class Sistema {
     return false;
   }
 
+  // Busca una oferta laboral usando su identificador.
   buscarOfertaPorId(idOferta) {
     for (let i = 0; i < this.ofertas.length; i++) {
       if (this.ofertas[i].id === idOferta) {
@@ -116,5 +116,50 @@ class Sistema {
       }
     }
     return null;
+  }
+
+  // Busca un postulante usando su identificador.
+  buscarPostulantePorId(idPostulante) {
+    for (let i = 0; i < this.postulantes.length; i++) {
+      if (this.postulantes[i].id === idPostulante) {
+        return this.postulantes[i];
+      }
+    }
+    return null;
+  }
+
+  // Busca una postulación usando su identificador.
+  buscarPostulacionPorId(idPostulacion) {
+    for (let i = 0; i < this.postulaciones.length; i++) {
+      if (this.postulaciones[i].id == idPostulacion) {
+        return this.postulaciones[i];
+      }
+    }
+    return null;
+  }
+
+  // Cuenta cuántas ofertas existen según su estado.
+  contarOfertasPorEstado(estado) {
+    let contador = 0;
+    for (let i = 0; i < this.ofertas.length; i++) {
+      if (this.ofertas[i].estado === estado) {
+        contador++;
+      }
+    }
+    return contador;
+  }
+
+  // Cuenta postulaciones de una oferta según su estado.
+  contarPostulacionesOfertaEstado(idOferta, estado) {
+    let contador = 0;
+    for (let i = 0; i < this.postulaciones.length; i++) {
+      if (
+        this.postulaciones[i].idOferta === idOferta &&
+        this.postulaciones[i].estado === estado
+      ) {
+        contador++;
+      }
+    }
+    return contador;
   }
 }
