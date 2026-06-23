@@ -9,12 +9,12 @@ function ocultarPantallas() {
 
 function mostrarLogin() {
   ocultarPantallas();
-  document.querySelector("#pantallaLogin").style.display = "block";
+  document.querySelector("#pantallaLogin").style.display = "flex";
 }
 
 function mostrarRegistro() {
   ocultarPantallas();
-  document.querySelector("#pantallaRegistro").style.display = "block";
+  document.querySelector("#pantallaRegistro").style.display = "flex";
 }
 
 function mostrarPostulante() {
@@ -88,10 +88,8 @@ function cargarTablaOfertasPostulante() {
 // Aca se mostraran las postulaciones del usuario Postulante.
 function mostrarSeccionPostulaciones() {
   let contenido = document.querySelector("#contenidoPostulante");
-  contenido.innerHTML = 
-  `
+  contenido.innerHTML = `
       <h2>Mis postulaciones</h2>
-
       <table border="1">
           <thead>
               <tr>
@@ -100,7 +98,6 @@ function mostrarSeccionPostulaciones() {
                   <th>Estado</th>
               </tr>
           </thead>
-
           <tbody id="tblMisPostulaciones">
           </tbody>
       </table>
@@ -116,22 +113,61 @@ function cargarTablaMisPostulaciones() {
   tabla.innerHTML = "";
 
   for (let i = 0; i < sistema.postulaciones.length; i++) {
-      let postulacion = sistema.postulaciones[i];
-      if (postulacion.idPostulante === usuarioLogueado.id) {
-          let oferta = sistema.buscarOfertaPorId(postulacion.idOferta);
-          tabla.innerHTML += `
+    let postulacion = sistema.postulaciones[i];
+    if (postulacion.idPostulante === usuarioLogueado.id) {
+      let oferta = sistema.buscarOfertaPorId(postulacion.idOferta);
+      tabla.innerHTML += `
               <tr>
                   <td>${oferta.titulo}</td>
                   <td>${oferta.empresa}</td>
                   <td>${postulacion.estado}</td>
               </tr>
           `;
-      }
+    }
   }
 }
 
-// 
+// Aca se mostraran las publicaciones destacadas en base a los datos del usuario Postulante.
 function mostrarDestacadas() {
-  // codigo para mostrar ofertas destacadas
+  let contenido = document.querySelector("#contenidoPostulante");
+  contenido.innerHTML = `
+      <h2>Ofertas destacadas</h2>
+      <table border="1">
+          <thead>
+              <tr>
+                  <th>Título</th>
+                  <th>Empresa</th>
+                  <th>Nivel</th>
+                  <th>Área</th>
+              </tr>
+          </thead>
+          <tbody id="tblDestacadas">
+          </tbody>
+      </table>
+  `;
+
+  cargarTablaDestacadas();
 }
 
+function cargarTablaDestacadas() {
+  let tabla = document.querySelector("#tblDestacadas");
+  tabla.innerHTML = "";
+
+  for(let i = 0; i < sistema.ofertas.length; i++){
+    let oferta = sistema.ofertas[i];
+    // Que sea compatible con el usuario la propuesta destacada.
+    if(
+      oferta.destacada === true &&
+      oferta.estado === "Activa" &&
+      oferta.nivel === usuarioLogueado.experiencia){
+      tabla.innerHTML += `
+              <tr>
+                  <td>${oferta.titulo}</td>
+                  <td>${oferta.empresa}</td>
+                  <td>${oferta.nivel}</td>
+                  <td>${oferta.area}</td>
+              </tr>
+          `;
+    }
+  }
+}
