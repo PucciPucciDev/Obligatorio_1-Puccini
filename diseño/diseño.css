@@ -3,6 +3,10 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz@8..144&display=swap");
 
+/* ===================================================== */
+/* PALETA DE COLORES */
+/* ===================================================== */
+
 :root {
   --color-bg: #f4f6fb;
   --color-surface: #ffffff;
@@ -17,12 +21,19 @@
   --color-table-hover: #f9fafb;
 }
 
+/* ===================================================== */
+/* CONFIGURACIÓN GENERAL */
+/* ===================================================== */
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   font-family: "Roboto Flex", Arial, Helvetica, sans-serif;
   background-color: var(--color-bg);
   color: var(--color-text);
@@ -33,13 +44,19 @@ body {
   min-height: 100vh;
 }
 
+/* ===================================================== */
 /* LOGIN Y REGISTRO */
+/* ===================================================== */
 
 #pantallaLogin,
 #pantallaRegistro {
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-secondary)
+  );
 }
 
 .formulario {
@@ -61,7 +78,26 @@ body {
   font-size: 14px;
 }
 
+.formulario button,
+.formulario input[type="button"] {
+  width: 100%;
+  margin-top: 14px;
+}
+
+/* ===================================================== */
+/* PANTALLAS PRINCIPALES */
+/* ===================================================== */
+
+#pantallaPostulante,
+#pantallaAdmin {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===================================================== */
 /* HEADER */
+/* ===================================================== */
 
 header {
   background-color: var(--color-surface);
@@ -84,9 +120,12 @@ nav {
   gap: 10px;
 }
 
-/* CONTENIDO */
+/* ===================================================== */
+/* CONTENIDO PRINCIPAL */
+/* ===================================================== */
 
 main {
+  flex: 1;
   padding: 40px;
 }
 
@@ -96,7 +135,16 @@ main h2 {
   font-size: 26px;
 }
 
+#contenidoPostulante,
+#contenidoAdmin {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ===================================================== */
 /* FORMULARIOS */
+/* ===================================================== */
 
 label {
   display: block;
@@ -117,6 +165,11 @@ textarea {
   font-size: 15px;
 }
 
+textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
 input:focus,
 select:focus,
 textarea:focus {
@@ -125,13 +178,9 @@ textarea:focus {
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.18);
 }
 
-.formulario button,
-.formulario input[type="button"] {
-  width: 100%;
-  margin-top: 14px;
-}
-
+/* ===================================================== */
 /* BOTONES */
+/* ===================================================== */
 
 button,
 input[type="button"] {
@@ -157,7 +206,9 @@ input[type="button"]:disabled {
   cursor: not-allowed;
 }
 
+/* ===================================================== */
 /* TABLAS */
+/* ===================================================== */
 
 table {
   width: 100%;
@@ -185,13 +236,15 @@ tr:hover {
   background-color: var(--color-table-hover);
 }
 
+/* ===================================================== */
 /* FOOTER */
+/* ===================================================== */
 
 footer {
   background-color: var(--color-header);
   color: #d1d5db;
   padding: 30px 40px;
-  margin-top: 40px;
+  margin-top: auto;
 }
 
 footer h3 {
@@ -201,4 +254,37 @@ footer h3 {
 
 footer p {
   margin: 6px 0;
+}
+
+/* ===================================================== */
+/* ESTADÍSTICAS ADMIN */
+/* ===================================================== */
+
+.tarjetasEstadisticas {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 35px;
+}
+
+.tarjeta {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 20px;
+  min-width: 180px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.tarjeta h3 {
+  margin-top: 0;
+  color: var(--color-text-muted);
+  font-size: 15px;
+}
+
+.tarjeta p {
+  margin: 0;
+  font-size: 34px;
+  font-weight: bold;
+  color: var(--color-primary);
 }

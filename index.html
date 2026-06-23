@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cartelera de Postulaciones</title>
     <link rel="stylesheet" href="diseño/diseño.css" />
-    <script src="Codigo/clases.js"></script>
-    <script src="Codigo/sistema.js"></script>
-    <script src="Codigo/datosPrecargados.js"></script>
-    <script src="Codigo/validaciones.js"></script>
-    <script src="Codigo/visual.js"></script>
-    <script src="Codigo/main.js"></script>
+    <!-- defer para que no intenten ejecutarse antes de que cargue el HTML -->
+    <script defer src="Codigo/clases.js"></script>
+    <script defer src="Codigo/sistema.js"></script>
+    <script defer src="Codigo/datosPrecargados.js"></script>
+    <script defer src="Codigo/validaciones.js"></script>
+    <script defer src="Codigo/visual.js"></script>
+    <script defer src="Codigo/main.js"></script>
   </head>
   <body>
     <!-- PANTALLA DE LOGIN -->
@@ -27,7 +28,7 @@
     </div>
 
     <!-- PANTALLA DE REGISTRO -->
-    <div id="pantallaRegistro" class="pantalla" style="display: none">
+    <div id="pantallaRegistro" class="pantalla">
       <div class="formulario">
         <h1>Registro de Postulante</h1>
         <label for="txtRegistroUsuario">Usuario</label>
