@@ -357,18 +357,162 @@ function precargarDatos() {
 
   let postulacion1 = new Postulacion(
     sistema.generarIdPostulacion(),
-    postulante1.id,
-    oferta1.id,
+    1,
+    "JOB_OFFER_1",
     "Pendiente"
-  );
+);
 
-  let postulacion2 = new Postulacion(
+let postulacion2 = new Postulacion(
     sistema.generarIdPostulacion(),
-    postulante2.id,
-    oferta2.id,
+    2,
+    "JOB_OFFER_2",
     "Aceptada"
-  );
+);
 
-  sistema.agregarPostulacion(postulacion1);
-  sistema.agregarPostulacion(postulacion2);
+let postulacion3 = new Postulacion(
+    sistema.generarIdPostulacion(),
+    3,
+    "JOB_OFFER_3",
+    "Rechazada"
+);
+
+let postulacion4 = new Postulacion(
+    sistema.generarIdPostulacion(),
+    4,
+    "JOB_OFFER_4",
+    "Pendiente"
+);
+
+let postulacion5 = new Postulacion(
+    sistema.generarIdPostulacion(),
+    5,
+    "JOB_OFFER_5",
+    "Aceptada"
+);
+
+let postulacion6 = new Postulacion(
+    sistema.generarIdPostulacion(),
+    6,
+    "JOB_OFFER_6",
+    "Rechazada"
+);
+
+let postulacion7 = new Postulacion(
+    sistema.generarIdPostulacion(),
+    7,
+    "JOB_OFFER_7",
+    "Pendiente"
+);
+
+let postulacion8 = new Postulacion(
+    sistema.generarIdPostulacion(),
+    8,
+    "JOB_OFFER_8",
+    "Aceptada"
+);
+
+let postulacion9 = new Postulacion(
+    sistema.generarIdPostulacion(),
+    9,
+    "JOB_OFFER_9",
+    "Rechazada"
+);
+
+let postulacion10 = new Postulacion(
+    sistema.generarIdPostulacion(),
+    10,
+    "JOB_OFFER_10",
+    "Pendiente"
+);
+
+let postulacion11 = new Postulacion(
+    sistema.generarIdPostulacion(),
+    11,
+    "JOB_OFFER_11",
+    "Aceptada"
+);
+
+let postulacion12 = new Postulacion(
+    sistema.generarIdPostulacion(),
+    12,
+    "JOB_OFFER_12",
+    "Rechazada"
+);
+
+let postulacion13 = new Postulacion(
+    sistema.generarIdPostulacion(),
+    13,
+    "JOB_OFFER_13",
+    "Pendiente"
+);
+
+let postulacion14 = new Postulacion(
+    sistema.generarIdPostulacion(),
+    14,
+    "JOB_OFFER_14",
+    "Aceptada"
+);
+
+let postulacion15 = new Postulacion(
+    sistema.generarIdPostulacion(),
+    15,
+    "JOB_OFFER_15",
+    "Rechazada"
+);
+
+let postulacion16 = new Postulacion(
+    sistema.generarIdPostulacion(),
+    1,
+    "JOB_OFFER_16",
+    "Pendiente"
+);
+
+let postulacion17 = new Postulacion(
+    sistema.generarIdPostulacion(),
+    2,
+    "JOB_OFFER_17",
+    "Aceptada"
+);
+
+let postulacion18 = new Postulacion(
+    sistema.generarIdPostulacion(),
+    3,
+    "JOB_OFFER_18",
+    "Rechazada"
+);
+
+let postulacion19 = new Postulacion(
+    sistema.generarIdPostulacion(),
+    4,
+    "JOB_OFFER_19",
+    "Pendiente"
+);
+
+let postulacion20 = new Postulacion(
+    sistema.generarIdPostulacion(),
+    5,
+    "JOB_OFFER_20",
+    "Aceptada"
+);
+
+sistema.agregarPostulacion(postulacion1);
+sistema.agregarPostulacion(postulacion2);
+sistema.agregarPostulacion(postulacion3);
+sistema.agregarPostulacion(postulacion4);
+sistema.agregarPostulacion(postulacion5);
+sistema.agregarPostulacion(postulacion6);
+sistema.agregarPostulacion(postulacion7);
+sistema.agregarPostulacion(postulacion8);
+sistema.agregarPostulacion(postulacion9);
+sistema.agregarPostulacion(postulacion10);
+sistema.agregarPostulacion(postulacion11);
+sistema.agregarPostulacion(postulacion12);
+sistema.agregarPostulacion(postulacion13);
+sistema.agregarPostulacion(postulacion14);
+sistema.agregarPostulacion(postulacion15);
+sistema.agregarPostulacion(postulacion16);
+sistema.agregarPostulacion(postulacion17);
+sistema.agregarPostulacion(postulacion18);
+sistema.agregarPostulacion(postulacion19);
+sistema.agregarPostulacion(postulacion20);
 }
