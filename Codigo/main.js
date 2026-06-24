@@ -31,6 +31,7 @@ function cargarEventos() {
   document.querySelector("#btnAdminCrearOferta").addEventListener("click", mostrarFormularioCrearOferta);
   document.querySelector("#btnAdminVerPostulaciones").addEventListener("click", mostrarPostulacionesPendientesAdmin);
   document.querySelector("#btnAdminEstadisticas").addEventListener("click", mostrarEstadisticasAdmin);
+  document.querySelector("#btnAdminVerOfertas").addEventListener("click", mostrarOfertasAdmin);
 }
 
 // Muestra mensajes en pantalla.
@@ -214,5 +215,52 @@ function rechazarPostulacion(idPostulacion) {
   if (postulacion !== null) {
     postulacion.estado = "Rechazada";
     mostrarPostulacionesPendientesAdmin();
+  }
+}
+
+// Cierra una oferta laboral sin eliminarla del sistema.
+function cerrarOferta(idOferta) {
+  let oferta = sistema.buscarOfertaPorId(idOferta);
+  if (oferta !== null) {
+    oferta.estado = "Cerrada";
+    mostrarOfertasAdmin();
+  }
+}
+
+// Guarda los cambios realizados sobre una oferta laboral.
+function guardarEdicionOferta() {
+  let idOferta = document.querySelector("#txtEditarIdOferta").value;
+  let oferta = sistema.buscarOfertaPorId(idOferta);
+  let titulo = document.querySelector("#txtEditarTituloOferta").value;
+  let empresa = document.querySelector("#txtEditarEmpresaOferta").value;
+  let descripcion = document.querySelector("#txtEditarDescripcionOferta").value;
+  let nivel = document.querySelector("#slcEditarNivelOferta").value;
+  let area = document.querySelector("#slcEditarAreaOferta").value;
+  let limite = Number(document.querySelector("#txtEditarLimiteOferta").value);
+  let vacantes = Number(document.querySelector("#txtEditarVacantesOferta").value);
+  let destacada = document.querySelector("#chkEditarDestacada").checked;
+
+  if(
+    titulo === "" ||
+    empresa === "" ||
+    descripcion === "" ||
+    nivel === "" ||
+    area === "" ||
+    limite <= 0 ||
+    vacantes <= 0 ||
+    limite < vacantes
+  ){
+    return;
+  }
+  if(oferta !== null){
+    oferta.titulo = titulo;
+    oferta.empresa = empresa;
+    oferta.descripcion = descripcion;
+    oferta.nivel = nivel;
+    oferta.area = area;
+    oferta.limitePostulaciones = limite;
+    oferta.vacantes = vacantes;
+    oferta.destacada = destacada;
+    mostrarOfertasAdmin();
   }
 }
